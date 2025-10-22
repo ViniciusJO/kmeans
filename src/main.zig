@@ -1,8 +1,8 @@
 const std = @import("std");
 
-const stb_image = @import("stbi.zig");
-// const stb_image_write = @import("stbiw.zig");
-const stb_image_resize = @import("stbir.zig");
+const stb_image = @import("stbi");
+// const stb_image_write = @import("stbiw");
+const stb_image_resize = @import("stbir");
 
 const gpa = std.heap.page_allocator;
 

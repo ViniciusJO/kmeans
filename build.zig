@@ -10,6 +10,16 @@ pub fn build(b: *std.Build) void {
         .optimize = optimize,
     });
 
+    const wf = b.addWriteFiles();
+    const stb_imp = wf.add("stb_implementations.c",
+        \\#define STB_IMAGE_IMPLEMENTATION 
+        \\#define STB_IMAGE_RESIZE_IMPLEMENTATION 
+        \\#define STB_IMAGE_WRITE_IMPLEMENTATION 
+        \\#include "../../../src/stb/stb_image.h"
+        \\#include "../../../src/stb/stb_image_resize2.h"
+        \\#include "../../../src/stb/stb_image_write.h"
+    );
+
     const stb_image = b.addTranslateC(.{
         .target = target,
         .root_source_file = b.path("src/stb/stb_image.h"),
@@ -34,26 +44,36 @@ pub fn build(b: *std.Build) void {
     kmeans.addImport("stbi", stb_image.createModule());
     kmeans.addImport("stbiw", stb_image_write.createModule());
     kmeans.addImport("stbir", stb_image_resize.createModule());
-    
-    kmeans.addCSourceFiles(.{
-        .files = &[_][]const u8 {
-            "src/stb/stb_image.h",
-            "src/stb/stb_image_resize2.h",
-            "src/stb/stb_image_write.h",
-        },
-        .flags = &[_][]const u8 {
-            "-g",
-            "-DSTB_IMAGE_IMPLEMENTATION",
-            "-DSTB_IMAGE_WRITE_IMPLEMENTATION",
-            "-DSTB_IMAGE_RESIZE_IMPLEMENTATION",
-        },
-        .language = .c
-    });
+
+    // kmeans.addIncludeDir("src/stb");
+    kmeans.addCSourceFile(.{ .file = stb_imp, });
+
+    // kmeans.addCSourceFiles(.{
+    //     .files = &[_][]const u8 {
+    //         "src/stb/stb_image.h",
+    //         "src/stb/stb_image_resize2.h",
+    //         "src/stb/stb_image_write.h",
+    //     },
+    //     .flags = &[_][]const u8 {
+    //         "-g",
+    //         "-DSTB_IMAGE_IMPLEMENTATION",
+    //         "-DSTB_IMAGE_WRITE_IMPLEMENTATION",
+    //         "-DSTB_IMAGE_RESIZE_IMPLEMENTATION",
+    //     },
+    //     .language = .c
+    // });
 
     const exe = b.addExecutable(.{
         .name = "color_juicer",
         .root_module = kmeans,
     });
+
+    exe.linkLibC();
+
+    exe.step.dependOn(&wf.step);
+    exe.step.dependOn(&stb_image.step);
+    exe.step.dependOn(&stb_image_write.step);
+    exe.step.dependOn(&stb_image_resize.step);
 
     b.installArtifact(exe);
 

@@ -13,13 +13,23 @@ Configured to generate the following files:
 - `$HOME/.cache/dyn_colors.ini`: to use in [polybar](https://github.com/polybar/polybar) (exposes colors pprim, psec, pterc, pcont);
 - `$HOME/.cache/i3_colors`: to configure the borders of focused containers in [i3](https://github.com/i3/i3) with the color that most contrast with the extracted ones
 
+## Usage
+
+```
+color_juicer <img_path> <centroids> <downsampling_factor>
+```
+
+- `img_path`: path to the image location in file system
+- `centroids`: number of centroids generated
+- `downsampling_factor`: factor to reduce the image resolution
+
 ## Output example
 
-For the image:
+For the image [test.png](test.png):
 
 ![test.png](test.png)
 
-extracts:
+`color_juicer test.png 5 5` extracts:
 
 ![#ecd5a5](https://placehold.co/150x150/ecd5a5/ecd5a5.png) ![#427b92](https://placehold.co/150x150/427b92/427b92.png) ![#ada58c](https://placehold.co/150x150/ada58c/ada58c.png) ![#716365](https://placehold.co/150x150/716365/716365.png)
 

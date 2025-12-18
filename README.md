@@ -1,6 +1,6 @@
 # Color juicer
 
-Uses the kmeans algorithm to extract colors from image.
+Uses the [k-means](https://pt.wikipedia.org/wiki/K-means) algorithm to extract colors from image.
 
 Made using [stb_image](https://github.com/nothings/stb) utilities;
 

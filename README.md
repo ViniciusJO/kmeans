@@ -19,6 +19,15 @@ For the image:
 
 ![test.png](test.png)
 
+extracts:
+
+- pprim: `#ECD5A5`
+- psec:  `#427B92`
+- pterc: `#ADA58C`
+- pcont: `#716365`
+
+and generates:
+
 - on console
 
 ```

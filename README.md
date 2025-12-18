@@ -11,6 +11,40 @@ Configured to generate the following files:
 - `$HOME/.cache/dyn_colors.ini`: to use in polybar (exposes colors pprim, psec, pterc, pcont);
 - `$HOME/.cache/i3_colors`: to configure the borders of focused containers in i3 with the color that most contrast with the extracted ones
 
+## Output example
+
+For the image:
+
+![test.png](test.png)
+
+- on console
+
+´´´
+pprim: `#ECD5A5`
+psec:  `#427B92`
+pterc: `#ADA58C`
+pcont: `#716365`
+´´´
+
+- on `$HOME/.cache/dyn_colors.ini`: 
+
+´´´
+[dyn_colors]
+pprim = #ECD5A5
+psec = #427B92
+pterc = #ADA58C
+pcont = #716365
+cprim = #C7A795
+csec = #5A6387
+´´´
+
+- on `$HOME/.cache/i3_colors`: 
+
+´´´
+client.focused #716365 #716365 #000000 #ECD5A5 #716365
+´´´
+
+
 ## TBD:
 
 Generate files to stylize:
